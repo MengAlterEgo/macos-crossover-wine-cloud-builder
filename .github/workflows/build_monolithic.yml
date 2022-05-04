@@ -250,6 +250,13 @@ jobs:
           patch -p1 < ${{ github.workspace }}/msvcrt-sincos.patch
           popd
 
+      - name: Patch msvcrt ASM_NAME macro 
+        if: startsWith(matrix.CROSS_OVER_VERSION, '20')
+        run: |
+          pushd sources/wine
+          patch -p1 < ${{ github.workspace }}/msvcrt-stdio.patch
+          popd
+
       ############ Build VKD3D ##############
       - name: Build VKD3D
         if: startsWith(matrix.CROSS_OVER_VERSION, '21')

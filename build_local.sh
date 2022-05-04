@@ -114,6 +114,10 @@ if [[ ${CROSS_OVER_VERSION} == 20.* ]]; then
     patch -p1 < ${GITHUB_WORKSPACE}/msvcrt-sincos.patch
     popd
 
+    pushd sources/wine
+    patch -p1 < ${GITHUB_WORKSPACE}/msvcrt-stdio.patch
+    popd
+
     echo Patch DXVK
     patch sources/dxvk/src/util/rc/util_rc_ptr.h < dxvk_util_rc_ptr.patch
 fi
@@ -296,12 +300,12 @@ popd
 
 echo Install wine32on64
 pushd ${BUILDROOT}/wine32on64
-make install-lib DESTDIR="${INSTALLROOT}/${WINE_INSTALLATION}"
+make install DESTDIR="${INSTALLROOT}/${WINE_INSTALLATION}"
 popd
 
 echo Install wine64
 pushd ${BUILDROOT}/wine64
-make install-lib DESTDIR="${INSTALLROOT}/${WINE_INSTALLATION}"
+make install DESTDIR="${INSTALLROOT}/${WINE_INSTALLATION}"
 popd
 
 
