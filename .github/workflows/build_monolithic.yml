@@ -251,7 +251,7 @@ jobs:
           popd
 
       - name: Patch msvcrt ASM_NAME macro 
-        if: startsWith(matrix.CROSS_OVER_VERSION, '20')
+        if: startsWith(matrix.CROSS_OVER_VERSION, '21')
         run: |
           pushd sources/wine
           patch -p1 < ${{ github.workspace }}/msvcrt-stdio.patch

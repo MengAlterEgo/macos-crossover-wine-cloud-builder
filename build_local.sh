@@ -114,13 +114,16 @@ if [[ ${CROSS_OVER_VERSION} == 20.* ]]; then
     patch -p1 < ${GITHUB_WORKSPACE}/msvcrt-sincos.patch
     popd
 
-    pushd sources/wine
-    patch -p1 < ${GITHUB_WORKSPACE}/msvcrt-stdio.patch
-    popd
-
     echo Patch DXVK
     patch sources/dxvk/src/util/rc/util_rc_ptr.h < dxvk_util_rc_ptr.patch
 fi
+
+if [[ ${CROSS_OVER_VERSION} == 21.* ]]; then
+    pushd sources/wine
+    patch -p1 < ${GITHUB_WORKSPACE}/msvcrt-stdio.patch
+    popd
+fi
+
 
 ############ Build LLVM / Clang ##############
 
